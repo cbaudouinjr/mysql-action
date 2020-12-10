@@ -32,7 +32,9 @@ if [ -n "$INPUT_MYSQL_TIMEZONE" ]; then
   docker_run="$docker_run -e TZ=$INPUT_MYSQL_TIMEZONE"
 fi
 
-docker_run="$docker_run -d -p $INPUT_HOST_PORT:$INPUT_CONTAINER_PORT mysql:$INPUT_MYSQL_VERSION --port=$INPUT_CONTAINER_PORT"
+docker_run="$docker_run -d -p --name=mysql-service $INPUT_HOST_PORT:$INPUT_CONTAINER_PORT mysql:$INPUT_MYSQL_VERSION --port=$INPUT_CONTAINER_PORT"
 docker_run="$docker_run --character-set-server=$INPUT_CHARACTER_SET_SERVER --collation-server=$INPUT_COLLATION_SERVER"
 
 sh -c "$docker_run"
+
+docker exec mysql-service mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
