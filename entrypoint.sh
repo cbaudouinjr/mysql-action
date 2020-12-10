@@ -27,6 +27,10 @@ if [ -n "$INPUT_MYSQL_DATABASE" ]; then
   docker_run="$docker_run -e MYSQL_DATABASE=$INPUT_MYSQL_DATABASE"
 fi
 
+if [ -n "$INPUT_MYSQL_TIMEZONE" ]; then
+  docker_run="$docker_run -e TZ=$INPUT_MYSQL_TIMEZONE"
+fi
+
 docker_run="$docker_run -d -p $INPUT_HOST_PORT:$INPUT_CONTAINER_PORT mysql:$INPUT_MYSQL_VERSION --port=$INPUT_CONTAINER_PORT"
 docker_run="$docker_run --character-set-server=$INPUT_CHARACTER_SET_SERVER --collation-server=$INPUT_COLLATION_SERVER"
 
