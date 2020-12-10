@@ -1,6 +1,6 @@
 #!/bin/sh
 
-docker_run="docker run --name=mysql-container"
+docker_run="docker run"
 
 if [ -n "$INPUT_MYSQL_ROOT_PASSWORD" ]; then
   echo "Root password not empty, use root superuser"
@@ -36,5 +36,3 @@ docker_run="$docker_run -d -p $INPUT_HOST_PORT:$INPUT_CONTAINER_PORT mysql:$INPU
 docker_run="$docker_run --character-set-server=$INPUT_CHARACTER_SET_SERVER --collation-server=$INPUT_COLLATION_SERVER"
 
 sh -c "$docker_run"
-
-docker exec mysql-container mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
