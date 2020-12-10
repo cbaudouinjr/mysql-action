@@ -28,6 +28,7 @@ if [ -n "$INPUT_MYSQL_DATABASE" ]; then
 fi
 
 if [ -n "$INPUT_MYSQL_TIMEZONE" ]; then
+  echo "Timezone detected"
   docker_run="$docker_run -e TZ=$INPUT_MYSQL_TIMEZONE"
 fi
 
